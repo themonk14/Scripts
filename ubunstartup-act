@@ -16,5 +16,5 @@ echo "Running snort monitor"
 gnome-terminal -e "sudo bash /home/maskman/Documents/scripts/login/snortstartup.sh"
 #echo "Done !!!"
 sleep 1
-echo "Done Sir !!"
+echo "Done!!"
 echo "Now Exiting !!" && exit
