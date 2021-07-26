@@ -7,4 +7,8 @@ After cloning the repository, run the "init" bash script present in the director
 That script adds the "startup" script and config file to "/usr/local/bin" folder.
 Then, It creates a cronjob to run the script after every reboot.
 
+Don't forget to change permissions of all the files in this repo , you can do that using the following command. Run the command only while you are in the scripts directory.
+
+chmod 755 * 
+
 mail : prudhvir14@pm.me
