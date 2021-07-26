@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#comment out the following 5 lines if you wish to give a custom directory path
+direc="/home/$USER/Documents/Logs"
+
+if [ ! -d $direc ]
+ then
+    mkdir /home/$USER/Documents/Logs
+fi
+
+#Uncomment these lines if you want the script to ask for a custom directory path
+
+#read -p "Enter the Directory path to Store logs : " direc
+#mkdir $direc
+#echo "Logs will be stored Logs folder in the path you've provided "
+#if [ ! -d $direc ]
+#    then
+#        mkdir $direc 
+#fi
+#mkdir $direc/Logs
+

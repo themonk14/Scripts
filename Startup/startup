@@ -1,0 +1,35 @@
+#!/bin/bash
+
+<< ///
+This script installs Chkrootkit, rkhunter, xterm and netstat in your system if not present and runs them. 
+It saves the logs in /home/$USER/Documents/Logs directory. If you wish to save logs to a desired directory, please check the staging file
+in config directory
+mail:prudhvir14@pm.me
+///
+
+
+echo "Running Script as : $USER"
+pwd_rn=$(dirname $(pwd))
+source /usr/local/bin/config/staging
+echo "Welcome $USER"
+echo "Looking for required binaries, I might attempt to install it if it is not found in your system.."
+sleep 2
+
+if ! command -v netstat rkhunter chkrootkit xterm gnome-terminal cron &> /dev/null
+then
+    echo "Netstat,Chkrootkit and rkhunter are not installed , Trying to install them"
+    sudo apt install -y net-tools chkrootkit rkhunter xterm gnome-terminal cron
+    echo "Installed Netstat,Chkrootkit and rkhunter"
+    exit
+else
+    echo "Required Binaries are present , Moving onto next task"
+    sudo gnome-terminal -t Active-Connections --hide-menubar -- watch -n 0.5 sudo netstat -anutp
+    xterm -e "sudo rkhunter -c  --sk >> $direc/rkhunter-`date '+%Y-%m-%d-%T'`.log ; sudo nmap -v localhost -p- -vv >> $direc/nmap-`date '+%Y-%m-%d-%T'`.log ; sudo chkrootkit >> $direc/chkrootkit-`date '+%Y-%m-%d-%T'`.log"
+fi
+
+echo "Logs saved in $direc:)"
+sleep 1
+
+#If you wish to disable CUPS service if you aren't using it , uncomment the following lines
+#echo "Stopping CUPS"
+#xterm -e "sudo systemctl stop cups && sudo systemctl disable cups && exit"

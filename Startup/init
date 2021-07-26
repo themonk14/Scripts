@@ -1,0 +1,18 @@
+#!/bin/bash
+
+echo "Hello $USER"
+echo "Present Working Directory : $(dirname $(pwd)) "
+ls -la
+echo "This script should only be run once !!!"
+sleep 1
+sudo cp -r ./startup ./config /usr/local/bin/
+sudo chmod 755 /usr/local/bin/startup /usr/local/bin/config/staging
+echo "Copied script files to /usr/local/bin folder.."
+
+#creating a cronjob
+sudo touch /etc/cron.allow ; sudo chmod 777 /etc/cron.allow ; sudo echo "$USER" >> /etc/cron.allow ; sudo chmod 755 /etc/cron.allow
+crontab -u $USER -l > /tmp/jobs.txt
+sudo echo "@reboot gnome-terminal -- startup" >> /tmp/jobs.txt
+crontab /tmp/jobs.txt
+#sudo rm /tmp/jobs.txt
+echo "Added the script in crontab to run after every reboot..."
